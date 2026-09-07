@@ -1,0 +1,103 @@
+# ============================================================
+# Vercel 上传忽略清单
+# `vercel` CLI 会上传整个目录，这个文件决定哪些内容不进部署产物。
+# 部署产物是公网可访问的，因此隐私与体积都靠这里把关。
+# ============================================================
+
+# 简历原件与实习内部资料：含手机号、内部数据，绝不上公网
+data/
+
+# 规格文档与内部记录
+.comate/
+prd-personal-site-*.md
+# 移到根目录的 spec 文档：内容含 prompt 硬约束、限流阈值、内部数据策略，
+# 不能随站点上公网（否则 https://站点/doc.md 谁都能打开）
+doc.md
+tasks.md
+summary.md
+
+# 环境变量：真实 key 只存在于本地 .env.local 与 Vercel 环境变量中
+.env
+.env.local
+.env.example
+
+# 录屏源文件（71MB，仅本地留存）
+*.mov
+
+# AAIL demo 的源文件：HEVC / 3630×2160 / 57.8MB，不上线。
+# HEVC 在 Windows Chrome 需要 GPU 硬件解码器且没有软解回退，Windows 上的 Edge / Firefox
+# 要装微软那个付费扩展，Linux Firefox 基本不支持——招聘方很可能看到黑屏。
+# 线上用的是转码产物 assets/aail-demo.mp4（H.264 / 1280×760 / 42.2MB，全浏览器可播），
+# 那个文件必须上传，不要加进这份清单。
+demo.mp4
+
+# 未被任何 HTML / CSS 引用的素材原图
+# （站上实际使用的是 assets/portrait.jpeg 与 assets/life-portrait.jpeg）
+素材图1.jpeg
+素材图2.jpeg
+素材图3.jpeg
+素材图4.jpeg
+证件照.jpeg
+生活照.jpeg
+背景.jpeg
+猫.jpeg
+
+# 实拍原图：原图是底片，将来重新裁切要用，本地保留但不上线。
+# 线上引用的都是 sips 转换产物：
+#
+# Off Screen 翻页书（pages/life.html，长边 1000px / 质量 70）
+#   手作.jpeg  → assets/hobby-craft.jpeg
+#   美食.jpg   → assets/hobby-food.jpeg     ← 原图 9.3 MB / 3025×4032，压到 220 KB
+#
+# 首页足迹地图的城市节点（index.html 的 .fp-node__photo，长边 400px / 质量 72）
+# 注意：这四张是经历过的城市，不是旅行照，不要往 Life 页放。
+# 显示尺寸最宽只有 96px，所以刻意压得很小，四张合计 156 KB。
+#   上海.jpg   → assets/city-shanghai.jpeg
+#   深圳.png   → assets/city-shenzhen.jpeg  ← 照片存成 PNG，转 JPEG 后 889 KB 降到 36 KB
+#   柏林.jpg   → assets/city-berlin.jpeg
+#   北京.jpg   → assets/city-beijing.jpeg
+手作.jpeg
+美食.jpg
+北京.jpg
+上海.jpg
+柏林.jpg
+深圳.png
+
+# 系统垃圾文件
+.DS_Store
+**/.DS_Store
+
+# ------------------------------------------------------------
+# 职探 Demo 录屏：暂不上线，方案待定。
+#
+# 源文件 avc1 1840×1080 / 3 分 19 秒 / 160.3 MB / 6.76 Mbps。
+# Vercel Hobby 用 CLI 部署，上传总量上限 100 MB（是总量，不是单文件）。
+# 当前上传总量 42.9 MB = 站点本体 0.66 + assets/aail-demo.mp4 42.24。
+#
+# avconvert（本机唯一可用的转码工具，不能指定码率/CRF）四档实测：
+#   不转          1840×1080  160.3 MB  6.76 Mbps  → 总量 203.2 MB  超限
+#   1280x720      1280×752   107.3 MB  4.53 Mbps  → 总量 150.2 MB  超限
+#   960x540        960×564    70.9 MB  2.99 Mbps  → 总量 113.8 MB  仍超限
+#   MediumQuality  480×280    15.4 MB  0.65 Mbps  → 总量  58.3 MB  塞得进但读不了界面文字
+# 即：70.9 MB 和 15.4 MB 之间没有档位，真正需要的 1080p @ 1.5–2 Mbps（约 37–50 MB）打不出来。
+#
+# 三条还原路径（任选其一，选完把下面这两行排除规则删掉）：
+#   A 装 Homebrew + ffmpeg，用 -crf 26 -preset slow 编 1080p，约 25–35 MB，全长保清晰度
+#   B 传 B 站后改嵌入，上传总量回到 42.9 MB
+#   C 用 avconvert --start/--duration 剪到 2 分半以内再转 540p
+#
+# 排除期间已做的收尾（不是留着 404）：
+#   index.html 里 Career Scout 卡片的 Watch Demo 按钮已注释
+#   pages/project-zhitan.html 的 04 Demo 区块改成诚实说明 + 联系出口
+# 两处都留了还原注释。
+assets/zhitan-demo.mp4
+# 播放器页跟着一起排除：视频不在线上时它是个孤儿页，直接访问会拿到坏播放器。
+# 本地文件保留不动，视频回来时把这两条排除一起删掉即可。
+assets/zhitan-demo-player.html
+
+# 注意：assets/aail-demo.mp4（H.264 / 1280×760 / 42.2 MB）与 assets/aail-demo-player.html
+# 必须上传，别跟上面两条搞混。
+
+# 交互式 demo 原型（自带样例数据），当前站点未引用，暂不上传
+assets/zhitan-demo.html
+# ------------------------------------------------------------

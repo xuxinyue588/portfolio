@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baidu Maps Strategy Case | Xu Xinyue</title>
+<meta name="description" content="The full breakdown of lifting parking fee coverage from 27% to 45%, plus the five-source framework behind opening-hours coverage and quality control.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- 手写标题字体：优先使用系统 SignPainter（macOS/iOS 自带）；下面这行 CDN 只是为非苹果平台提供 Caveat Brush 回退，若不需要跨平台一致可整行删除 -->
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="curtain" id="curtain" aria-hidden="true"></div>
+<div class="dot-drift" aria-hidden="true"></div>
+<header class="nav" id="nav">
+  <div class="nav__inner container">
+    <a class="nav__logo" href="../index.html">Xu Xinyue<span class="nav__logo-dot">.</span></a>
+    <button class="nav__burger" id="navBurger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navMenu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav__menu" id="navMenu" aria-label="Main navigation">
+      <ul class="nav__list">
+        <li><a class="nav__link" href="../index.html#hero">Index</a></li>
+        <li><a class="nav__link" href="../index.html#journey">Trajectory</a></li>
+        <li><a class="nav__link is-active" href="../index.html#strategy">Deep Dive</a></li>
+        <li><a class="nav__link" href="../index.html#projects">Work</a></li>
+        <li><a class="nav__link" href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+</header>
+<main>
+<div class="container">
+  <nav class="crumb" aria-label="Breadcrumb">
+    <a href="../index.html">Index</a>
+    <span class="crumb__sep">/</span>
+    <a href="../index.html#strategy">Deep Dive</a>
+    <span class="crumb__sep">/</span>
+    <span class="crumb__current">Baidu Maps Strategy</span>
+  </nav>
+</div>
+
+<section class="detail-hero">
+  <div class="container">
+    <p class="section__eyebrow">Case Study</p>
+    <h1 class="detail-hero__title">Three Months on Baidu Maps: One Complaint to 150 Cities</h1>
+    <p class="detail-hero__lead">The first question I was handed was concrete: why can't users find parking fees on the map? Three months later it had become two strategies that land on people and cost — one solving "is it there", the other solving "is it right".</p>
+    <div class="detail-meta">
+      <div><span>Role</span><strong>Strategy PM Intern</strong></div>
+      <div><span>Period</span><strong>2026.05 – 2026.08</strong></div>
+      <div><span>Team</span><strong>IDG Maps Business Group</strong></div>
+      <div><span>Headline result</span><strong>Coverage 27% → 45%</strong></div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="detail-body">
+    <div>
+      <article class="detail-block" id="ctx">
+        <h2 class="detail-block__title"><span class="detail-block__num">01</span>Context: an underrated high-frequency complaint</h2>
+        <p>Parking fee coverage on Baidu Maps sat around 27%, and "no fee information" was a top complaint in the navigate-to-destination scenario. The user has already driven to the destination before discovering they don't know what parking costs — the breakpoint sits at the very end of the decision chain, where it is most expensive.</p>
+        <p>Worse, this is not a problem you can brute-force with volume. Parking lot types differ enormously: mall basements, roadside bays, campus-built lots, hospital annexes — each with completely different levels of public disclosure and different acquisition channels.</p>
+        <p class="detail-quote">Admit you don't know the answer, then close in on it with data — the method I kept returning to on this project.</p>
+      </article>
+
+      <article class="detail-block" id="judge">
+        <h2 class="detail-block__title"><span class="detail-block__num">02</span>My call: measure the gap before discussing solutions</h2>
+        <p>Before doing anything I sampled 500 parking lots and compared fee coverage one by one against Amap and Tencent Maps. The goal wasn't to prove we were behind, but to locate which scenarios the gap concentrated in — if it were spread evenly across all types, this would be a collection-capability problem; if it clustered in a few types, it would be a strategy-choice problem.</p>
+        <p>It was the latter. The gap was heavily concentrated in specific scenarios, which directly determined the route that followed: scenario-specific collection rather than simply adding headcount.</p>
+      </article>
+
+      <article class="detail-block" id="strategy-a">
+        <h2 class="detail-block__title"><span class="detail-block__num">03</span>Strategy A: parking fee coverage</h2>
+        <p class="exp__result">Coverage 27% → 45%, ahead of competitors by 10+ PP</p>
+        <p>The approach was to cut the oversized goal of "raise coverage" into three layers of prioritizable action:</p>
+        <ol class="steps">
+          <li>Sampled 500 parking lots against Amap and Tencent Maps to locate where the coverage gap concentrated</li>
+          <li>Scenario-specific collection: competitor mining, field survey, roadside official sites and AI phone inquiry, each owning one class of scenario</li>
+          <li>Three-dimension tiering across 150 cities, launched in priority waves to control labour cost and risk</li>
+        </ol>
+        <p>The most unusual of the four channels was AI phone inquiry. It can cover lots with no public information online at all, but its output quality is inherently unstable — so I built a quality feedback loop for it, identified five recurring failure classes, drew the human–machine boundary, and ultimately supported an 80%+ automation rate.</p>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <p class="stat-card__value"><span class="stat-num" data-target="45">0</span><span class="stat-suffix">%</span></p>
+            <p class="stat-card__label">Parking fee coverage (+15 PP, 10+ PP ahead of competitors)</p>
+            <div class="stat-bar" data-from="27" data-to="45">
+              <span class="stat-bar__fill"></span>
+              <span class="stat-bar__base" style="left: 27%"></span>
+            </div>
+            <p class="stat-bar__legend"><span>Inherited 27%</span><span>Delivered 45%</span></p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__value"><span class="stat-num" data-target="85">0</span><span class="stat-suffix">%+</span></p>
+            <p class="stat-card__label">Strategy launch success rate</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__value"><span class="stat-num" data-target="80">0</span><span class="stat-suffix">%</span></p>
+            <p class="stat-card__label">Sampling pass rate, 130-person collection project</p>
+          </div>
+        </div>
+      </article>
+      <article class="detail-block" id="strategy-b">
+        <h2 class="detail-block__title"><span class="detail-block__num">04</span>Strategy B: opening hours coverage and quality</h2>
+        <p class="exp__result">Coverage lifted at zero incremental collection cost</p>
+        <p>This line started from an anomaly signal: manual production volume was off by an order of magnitude. I traced 23 anomalous records and found 57% of that volume had nothing to do with opening hours — the problem was not at the operations end; the root cause was a defect in source-link recall.</p>
+        <p>Once the root cause was confirmed, the answer was no longer "add reviewers" but rebuilding the source framework:</p>
+        <ol class="steps">
+          <li>Five-source framework: barrier-breaking crawl, parent-child inheritance, brand sweeping, obvious-fake filtering, competitor mining</li>
+          <li>Core principle "zero incremental collection cost, maximum coverage" — reuse existing data relations first</li>
+          <li>Validated with ground-truth sampling before opening the full pipeline</li>
+        </ol>
+        <p>Parent-child inheritance had the best return of all: chain-brand sub-stores inherit a great deal from the parent entity, so that share of coverage gain costs almost nothing extra to collect.</p>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <p class="stat-card__value"><span class="stat-num" data-target="85">0</span><span class="stat-suffix">%+</span></p>
+            <p class="stat-card__label">Ground-truth validation accuracy</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__value"><span class="stat-num" data-target="150">0</span><span class="stat-suffix">+</span></p>
+            <p class="stat-card__label">Official sites covered (plus 10 mini-program sources)</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__value"><span class="stat-num" data-target="70">0</span><span class="stat-suffix">w+</span></p>
+            <p class="stat-card__label">New POIs unlocked past encyclopedia limits</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="detail-block" id="retro">
+        <h2 class="detail-block__title"><span class="detail-block__num">05</span>Retrospective: what these three months taught me</h2>
+        <p><strong>Tier the problem before touching it.</strong> Three-dimension tiering across 150 cities and the five-source framework were both about slicing an oversized goal into prioritizable pieces — otherwise you spin forever on "which one first".</p>
+        <p><strong>Trust data, but chase the root cause.</strong> 57% of the 23 anomalous records were unrelated to opening hours. Numbers are only the entrance; the real defect sat in source-link recall — stop at the number and you build the solution in the wrong place.</p>
+        <p><strong>Strategy has to land on people and cost.</strong> Running a 130-person collection project from PRD through quality acceptance taught me to price the labour first, then argue about elegance.</p>
+        <p class="notice">If you want the finer decision process behind any step — how the three tiering dimensions were defined, or what the five AI-call failure classes were — reach out directly. That part touches internal detail, so this page only goes to a publicly shareable granularity.</p>
+      </article>
+    </div>
+
+    <aside class="toc">
+      <p class="toc__title">On this page</p>
+      <ul class="toc__list">
+        <li><a href="#ctx">Context</a></li>
+        <li><a href="#judge">My call</a></li>
+        <li><a href="#strategy-a">Strategy A: fee coverage</a></li>
+        <li><a href="#strategy-b">Strategy B: opening hours</a></li>
+        <li><a href="#retro">Retrospective</a></li>
+      </ul>
+    </aside>
+  </div>
+
+  <nav class="page-nav" aria-label="Previous and next">
+    <a class="page-nav__item" href="../index.html#strategy">
+      <p class="page-nav__label">← Back</p>
+      <p class="page-nav__title">Index · Deep Dive</p>
+    </a>
+    <a class="page-nav__item page-nav__item--next" href="project-zhitan.html">
+      <p class="page-nav__label">Next →</p>
+      <p class="page-nav__title">Career Scout · Multi-Agent Job Assistant</p>
+    </a>
+  </nav>
+</div>
+</main>
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>© 2026 Xu Xinyue · Personal Site</p>
+    <p class="footer__meta">Built with HTML · CSS · Vanilla JavaScript</p>
+  </div>
+</footer>
+<svg class="goo-defs" aria-hidden="true" focusable="false">
+  <filter id="goo">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="blurred"/>
+    <feColorMatrix in="blurred" mode="matrix"
+      values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9"/>
+  </filter>
+</svg>
+<div class="goo" id="gooLayer" aria-hidden="true">
+  <span class="goo__blob goo__blob--lead"></span>
+  <span class="goo__blob goo__blob--trail"></span>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="../vendor/gsap.min.js" defer></script>
+<script src="../vendor/ScrollTrigger.min.js" defer></script>
+<script src="../vendor/SplitText.min.js" defer></script>
+<script src="../script.js" defer></script>
+<script src="../motion.js" defer></script>
+</body>
+</html>

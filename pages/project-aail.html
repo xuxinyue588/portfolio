@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AAIL Animated Learning System | Xu Xinyue</title>
+<meta name="description" content="Parsing natural-language geometry problems into parameters and animation timing, rendering rotatable exploded 3D models in Three.js with auxiliary lines generated step by step.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- 手写标题字体：优先使用系统 SignPainter（macOS/iOS 自带）；下面这行 CDN 只是为非苹果平台提供 Caveat Brush 回退，若不需要跨平台一致可整行删除 -->
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="curtain" id="curtain" aria-hidden="true"></div>
+<div class="dot-drift" aria-hidden="true"></div>
+<header class="nav" id="nav">
+  <div class="nav__inner container">
+    <a class="nav__logo" href="../index.html">Xu Xinyue<span class="nav__logo-dot">.</span></a>
+    <button class="nav__burger" id="navBurger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navMenu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav__menu" id="navMenu" aria-label="Main navigation">
+      <ul class="nav__list">
+        <li><a class="nav__link" href="../index.html#hero">Index</a></li>
+        <li><a class="nav__link" href="../index.html#journey">Trajectory</a></li>
+        <li><a class="nav__link" href="../index.html#strategy">Deep Dive</a></li>
+        <li><a class="nav__link is-active" href="../index.html#projects">Work</a></li>
+        <li><a class="nav__link" href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+</header>
+<main>
+<div class="container">
+  <nav class="crumb" aria-label="Breadcrumb">
+    <a href="../index.html">Index</a>
+    <span class="crumb__sep">/</span>
+    <a href="../index.html#projects">Work</a>
+    <span class="crumb__sep">/</span>
+    <span class="crumb__current">AAIL</span>
+  </nav>
+</div>
+
+<section class="detail-hero">
+  <div class="container">
+    <p class="section__eyebrow">Project · Education / 3D</p>
+    <h1 class="detail-hero__title">AAIL: Lifting Solid Geometry Off the Page</h1>
+    <p class="detail-hero__lead">In K-12 solid geometry the hard part isn't the arithmetic — it's building the space in your head. AAIL parses a problem into geometric parameters and animation timing so students can rotate and take the solid apart themselves.</p>
+    <div class="detail-meta">
+      <div><span>Role</span><strong>Product design + front-end</strong></div>
+      <div><span>Audience</span><strong>K-12 solid geometry</strong></div>
+      <div><span>Stack</span><strong>Three.js · LLM parsing</strong></div>
+      <div><span>Form</span><strong>Interactive animated learning system</strong></div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="detail-body">
+    <div>
+      <article class="detail-block" id="problem">
+        <h2 class="detail-block__title"><span class="detail-block__num">01</span>The block is spatial imagination, not calculation</h2>
+        <p>Watching students work through solid geometry, one thing stood out: their algebra was fine, and almost every stall happened at "which face is this auxiliary line on" or "how exactly do these two planes intersect". A 2D page is inherently lossy for 3D relations, and a textbook can only offer one fixed projection.</p>
+        <p>So the goal was never to explain the solution — it was to give the lost dimension back to the student.</p>
+      </article>
+
+      <article class="detail-block" id="solution">
+        <h2 class="detail-block__title"><span class="detail-block__num">02</span>Approach: problem → parameters → animation timing</h2>
+        <ol class="steps">
+          <li>Use an LLM to parse the natural-language problem into structured geometric parameters (points, lines, planes, constraints)</li>
+          <li>Turn the solution steps into animation timing, one figure change per step</li>
+          <li>Render a rotatable, explodable model in Three.js, generating auxiliary lines step by step rather than all at once</li>
+        </ol>
+        <p>"Step by step" is the critical design here. Draw every auxiliary line at once and the student still faces one complex finished diagram; revealed in sequence, they can follow why each line exists.</p>
+      </article>
+
+      <article class="detail-block" id="role">
+        <h2 class="detail-block__title"><span class="detail-block__num">03</span>My part</h2>
+        <p>I owned product design and front-end implementation: defining the output schema of problem parsing, designing the granularity rules for animation steps, and building the Three.js scene and interactions (rotate, explode, step forward/back).</p>
+        <p>What I tuned repeatedly was granularity — too coarse and students can't follow; too fine and it degrades into mechanically clicking next. There's no standard answer for that balance; you find it by testing real problems one at a time.</p>
+      </article>
+
+      <article class="detail-block" id="demo">
+        <h2 class="detail-block__title"><span class="detail-block__num">04</span>Demo</h2>
+        <p>Below is the running product: a solid-geometry problem parsed into parameters, then broken into steps a student can turn and replay themselves.</p>
+        <div class="detail-video">
+          <iframe src="../assets/aail-demo-player.html" title="AAIL Animated Learning System demo video" loading="lazy"></iframe>
+        </div>
+      </article>
+
+      <article class="detail-block" id="retro">
+        <h2 class="detail-block__title"><span class="detail-block__num">05</span>Retrospective</h2>
+        <p class="detail-quote">The real difficulty in education products is step granularity, not rendering quality.</p>
+        <p>I expected 3D rendering to be the hard part; it turned out to be table stakes, and what actually determined learning outcomes was "how much belongs in one step". That is the same instinct I later used in strategy work: cutting a big problem into right-sized pieces matters more than polishing each piece.</p>
+        <p class="notice">This project hasn't been validated at teaching scale yet. Happy to walk through the parsing schema or the animation breakdown of a specific problem.</p>
+      </article>
+    </div>
+
+    <aside class="toc">
+      <p class="toc__title">On this page</p>
+      <ul class="toc__list">
+        <li><a href="#problem">The problem</a></li>
+        <li><a href="#solution">Approach</a></li>
+        <li><a href="#role">My part</a></li>
+        <li><a href="#demo">Demo</a></li>
+        <li><a href="#retro">Retrospective</a></li>
+      </ul>
+    </aside>
+  </div>
+
+  <nav class="page-nav" aria-label="Previous and next">
+    <a class="page-nav__item" href="project-zhitan.html">
+      <p class="page-nav__label">← Previous</p>
+      <p class="page-nav__title">Career Scout · Multi-Agent Job Assistant</p>
+    </a>
+    <a class="page-nav__item page-nav__item--next" href="project-hull.html">
+      <p class="page-nav__label">Next →</p>
+      <p class="page-nav__title">Hull Tactical Market Prediction</p>
+    </a>
+  </nav>
+</div>
+</main>
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>© 2026 Xu Xinyue · Personal Site</p>
+    <p class="footer__meta">Built with HTML · CSS · Vanilla JavaScript</p>
+  </div>
+</footer>
+<svg class="goo-defs" aria-hidden="true" focusable="false">
+  <filter id="goo">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="blurred"/>
+    <feColorMatrix in="blurred" mode="matrix"
+      values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9"/>
+  </filter>
+</svg>
+<div class="goo" id="gooLayer" aria-hidden="true">
+  <span class="goo__blob goo__blob--lead"></span>
+  <span class="goo__blob goo__blob--trail"></span>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="../vendor/gsap.min.js" defer></script>
+<script src="../vendor/ScrollTrigger.min.js" defer></script>
+<script src="../vendor/SplitText.min.js" defer></script>
+<script src="../script.js" defer></script>
+<script src="../motion.js" defer></script>
+</body>
+</html>

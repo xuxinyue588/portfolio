@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Off Screen · Hobbies | Xu Xinyue</title>
+<meta name="description" content="Craft, food, travel — open this book and see what I do when I'm not writing code or shaping strategy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- 手写标题字体：优先使用系统 SignPainter（macOS/iOS 自带）；下面这行 CDN 只是为非苹果平台提供 Caveat Brush 回退，若不需要跨平台一致可整行删除 -->
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="curtain" id="curtain" aria-hidden="true"></div>
+<div class="dot-drift" aria-hidden="true"></div>
+<header class="nav" id="nav">
+  <div class="nav__inner container">
+    <a class="nav__logo" href="../index.html">Xu Xinyue<span class="nav__logo-dot">.</span></a>
+    <button class="nav__burger" id="navBurger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navMenu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav__menu" id="navMenu" aria-label="Main navigation">
+      <ul class="nav__list">
+        <li><a class="nav__link" href="../index.html#hero">Index</a></li>
+        <li><a class="nav__link" href="../index.html#journey">Trajectory</a></li>
+        <li><a class="nav__link" href="../index.html#strategy">Deep Dive</a></li>
+        <li><a class="nav__link" href="../index.html#projects">Work</a></li>
+        <li><a class="nav__link" href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+</header>
+<main>
+<div class="container">
+  <nav class="crumb" aria-label="Breadcrumb">
+    <a href="../index.html">Index</a>
+    <span class="crumb__sep">/</span>
+    <span class="crumb__current">Off Screen</span>
+  </nav>
+</div>
+
+<section class="detail-hero">
+  <div class="geo" id="heroGeo" aria-hidden="true">
+    <span class="geo__ring geo__ring--lg" data-depth="14"></span>
+    <span class="geo__dot geo__dot--pink" data-depth="30"></span>
+    <span class="geo__square" data-depth="18"></span>
+  </div>
+  <div class="container">
+    <p class="section__eyebrow">Off Screen</p>
+    <h1 class="detail-hero__title">Off Screen</h1>
+    <p class="detail-hero__lead">Click the right half of the book to turn forward, the left half to go back. Arrow keys, the buttons below, and swiping on mobile all work too.</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="book-stage">
+    <div class="book" id="book" role="region" aria-label="Hobby flip book">
+      <div class="book__base book__base--left" aria-hidden="true"></div>
+      <div class="book__base book__base--right" aria-hidden="true"></div>
+
+      <div class="book__sheet">
+        <div class="book__face book__face--front book__face--cover">
+          <p class="leaf__kicker">Xu Xinyue · Off Screen</p>
+          <h2 class="leaf__title">Three things off screen</h2>
+          <p class="leaf__text">Craft, food, travel. They work the same way my product thinking does: make something first, then draw the lesson.</p>
+          <span class="book__hint" aria-hidden="true">Open →</span>
+          <span class="book__corner" aria-hidden="true"></span>
+        </div>
+        <div class="book__face book__face--back">
+          <p class="leaf__kicker">Hobby 01</p>
+          <h2 class="leaf__title">Craft</h2>
+          <p class="leaf__text">Raw material to finished object, by hand.</p>
+          <div class="leaf__photo leaf__photo--single">
+            <img src="../assets/hobby-craft.jpeg" alt="A piece I made by hand" width="753" height="1000" loading="lazy">
+          </div>
+          <p class="leaf__foot">01 / 03</p>
+        </div>
+      </div>
+
+      <div class="book__sheet">
+        <div class="book__face book__face--front">
+          <p class="leaf__kicker">Hobby 02</p>
+          <h2 class="leaf__title">Food</h2>
+          <p class="leaf__text">A complete result inside a single hour.</p>
+          <div class="leaf__photo leaf__photo--single">
+            <img src="../assets/hobby-food.jpeg" alt="A dish I cooked at home" width="750" height="1000" loading="lazy">
+          </div>
+          <p class="leaf__foot">02 / 03</p>
+        </div>
+        <div class="book__face book__face--back">
+          <p class="leaf__kicker">Hobby 03</p>
+          <h2 class="leaf__title">Travel</h2>
+          <p class="leaf__text">Plan it in detail, then tear half of it up.</p>
+          <!-- 旅行照待补：素材到了用与 Craft / Food 相同的结构
+               <div class="leaf__photo leaf__photo--single">
+                 <img src="../assets/travel-xxx.jpeg" alt="..." width="0" height="0" loading="lazy">
+               </div> -->
+          <p class="leaf__foot">03 / 03</p>
+        </div>
+      </div>
+
+      <div class="book__sheet">
+        <div class="book__face book__face--front book__face--end">
+          <p class="leaf__kicker">The End</p>
+          <h2 class="leaf__title">That's it — want to talk?</h2>
+          <p class="leaf__text">If you also make things by hand, love cooking, or just got back from somewhere, I'd like to hear it. Work topics are welcome too.</p>
+          <p class="leaf__text"><a href="../index.html#contact" style="text-decoration: underline;">Go to contact →</a></p>
+        </div>
+        <div class="book__face book__face--back book__face--blank">
+          <p class="leaf__kicker">Colophon</p>
+          <h2 class="leaf__title">Back cover</h2>
+          <p class="leaf__text">This book was bound by hand with HTML, CSS and vanilla JavaScript — no frameworks.</p>
+        </div>
+      </div>
+
+      <div class="book__spine" aria-hidden="true"></div>
+      <div class="book__glow" aria-hidden="true"></div>
+    </div>
+
+    <div class="book-ctrl">
+      <button type="button" class="book-btn" id="bookPrev" aria-label="Previous page">← Prev</button>
+      <div class="book-dots" id="bookDots" aria-label="Spread progress"></div>
+      <button type="button" class="book-btn" id="bookNext" aria-label="Next page">Next →</button>
+    </div>
+  </div>
+
+  <nav class="page-nav" aria-label="Page navigation">
+    <a class="page-nav__item" href="../index.html">
+      <p class="page-nav__label">← Back</p>
+      <p class="page-nav__title">Index</p>
+    </a>
+    <a class="page-nav__item page-nav__item--next" href="../index.html#contact">
+      <p class="page-nav__label">Next →</p>
+      <p class="page-nav__title">Contact</p>
+    </a>
+  </nav>
+</div>
+</main>
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>© 2026 Xu Xinyue · Personal Site</p>
+    <p class="footer__meta">Built with HTML · CSS · Vanilla JavaScript</p>
+  </div>
+</footer>
+<svg class="goo-defs" aria-hidden="true" focusable="false">
+  <filter id="goo">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="blurred"/>
+    <feColorMatrix in="blurred" mode="matrix"
+      values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9"/>
+  </filter>
+</svg>
+<div class="goo" id="gooLayer" aria-hidden="true">
+  <span class="goo__blob goo__blob--lead"></span>
+  <span class="goo__blob goo__blob--trail"></span>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="../vendor/gsap.min.js" defer></script>
+<script src="../vendor/ScrollTrigger.min.js" defer></script>
+<script src="../vendor/SplitText.min.js" defer></script>
+<script src="../script.js" defer></script>
+<script src="../motion.js" defer></script>
+</body>
+</html>

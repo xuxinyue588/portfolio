@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hull Tactical Market Prediction | Xu Xinyue</title>
+<meta name="description" content="Finding a signal that holds up in noisy financial series: three-dimension feature design, time-series cross-validation and stacking — Pearson 0.384, annualized Sharpe 2.97.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- 手写标题字体：优先使用系统 SignPainter（macOS/iOS 自带）；下面这行 CDN 只是为非苹果平台提供 Caveat Brush 回退，若不需要跨平台一致可整行删除 -->
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="curtain" id="curtain" aria-hidden="true"></div>
+<div class="dot-drift" aria-hidden="true"></div>
+<header class="nav" id="nav">
+  <div class="nav__inner container">
+    <a class="nav__logo" href="../index.html">Xu Xinyue<span class="nav__logo-dot">.</span></a>
+    <button class="nav__burger" id="navBurger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navMenu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav__menu" id="navMenu" aria-label="Main navigation">
+      <ul class="nav__list">
+        <li><a class="nav__link" href="../index.html#hero">Index</a></li>
+        <li><a class="nav__link" href="../index.html#journey">Trajectory</a></li>
+        <li><a class="nav__link" href="../index.html#strategy">Deep Dive</a></li>
+        <li><a class="nav__link is-active" href="../index.html#projects">Work</a></li>
+        <li><a class="nav__link" href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+</header>
+<main>
+<div class="container">
+  <nav class="crumb" aria-label="Breadcrumb">
+    <a href="../index.html">Index</a>
+    <span class="crumb__sep">/</span>
+    <a href="../index.html#projects">Work</a>
+    <span class="crumb__sep">/</span>
+    <span class="crumb__current">Hull Tactical</span>
+  </nav>
+</div>
+
+<section class="detail-hero">
+  <div class="container">
+    <p class="section__eyebrow">Project · Quant Modeling</p>
+    <h1 class="detail-hero__title">Hull Tactical: Stability First, Score Second</h1>
+    <p class="detail-hero__lead">A single model scored well, then collapsed on another window — textbook overfitting. The real work here wasn't tuning; it was building a validation method that survives a change of period.</p>
+    <div class="detail-meta">
+      <div><span>Role</span><strong>Feature design and model blending</strong></div>
+      <div><span>Stack</span><strong>Python · Feature engineering · Stacking</strong></div>
+      <div><span>Correlation</span><strong>Pearson 0.384</strong></div>
+      <div><span>Annualized Sharpe</span><strong>2.97</strong></div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="detail-body">
+    <div>
+      <article class="detail-block" id="problem">
+        <h2 class="detail-block__title"><span class="detail-block__num">01</span>A pretty score is not a working signal</h2>
+        <p>Financial time series carry a very low signal-to-noise ratio, so any model can land a beautiful score on a historical window. Our first single model did exactly that: excellent on one period, collapsing on the next.</p>
+        <p>Once that was clear, the question changed from "how do we raise the score" to "how do we tell whether this score is fake".</p>
+      </article>
+
+      <article class="detail-block" id="features">
+        <h2 class="detail-block__title"><span class="detail-block__num">02</span>Three-dimension feature design</h2>
+        <p>I built features from three mutually independent angles so they wouldn't all describe the same thing:</p>
+        <ol class="steps">
+          <li>Price momentum: trend strength and reversal signals across windows</li>
+          <li>Volatility structure: volatility level and shifts in its term structure</li>
+          <li>Macro sentiment: market sentiment indicators</li>
+        </ol>
+        <p>The lower the correlation between the three, the more blending gains later — something to settle during feature design, not to patch up at the stacking stage.</p>
+      </article>
+
+      <article class="detail-block" id="validation">
+        <h2 class="detail-block__title"><span class="detail-block__num">03</span>Time-series cross-validation and stacking</h2>
+        <p>The pivotal move was replacing random splits with time-series cross-validation, strictly keeping training data earlier than validation data to rule out look-ahead leakage. This makes the score visibly uglier — and the uglier score is the credible one.</p>
+        <p>On that base we stacked: several base models each modelling a different feature dimension, with a meta-model learning how to weight them. Blending gains come from base-model diversity, which makes the three-dimension feature design a prerequisite.</p>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <p class="stat-card__value"><span class="stat-num" data-target="0.384">0</span></p>
+            <p class="stat-card__label">Pearson correlation</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__value"><span class="stat-num" data-target="2.97">0</span></p>
+            <p class="stat-card__label">Annualized Sharpe</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__value"><span class="stat-num" data-target="3">0</span><span class="stat-suffix">D</span></p>
+            <p class="stat-card__label">Feature system: momentum / volatility / macro sentiment</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="detail-block" id="retro">
+        <h2 class="detail-block__title"><span class="detail-block__num">04</span>Retrospective</h2>
+        <p class="detail-quote">Control stability first, then chase the score — that order can't be reversed.</p>
+        <p>This project changed how I read metrics: whether a number is good depends entirely on the validation it came from. Later, insisting on ground-truth sampling before opening a strategy to full volume came straight from here.</p>
+        <p class="notice">Code and feature details aren't expanded on this page. Happy to talk through specific feature construction or blending weights.</p>
+      </article>
+    </div>
+
+    <aside class="toc">
+      <p class="toc__title">On this page</p>
+      <ul class="toc__list">
+        <li><a href="#problem">The problem</a></li>
+        <li><a href="#features">Feature design</a></li>
+        <li><a href="#validation">Validation &amp; stacking</a></li>
+        <li><a href="#retro">Retrospective</a></li>
+      </ul>
+    </aside>
+  </div>
+
+  <nav class="page-nav" aria-label="Previous and next">
+    <a class="page-nav__item" href="project-aail.html">
+      <p class="page-nav__label">← Previous</p>
+      <p class="page-nav__title">AAIL Animated Learning System</p>
+    </a>
+    <a class="page-nav__item page-nav__item--next" href="../index.html#projects">
+      <p class="page-nav__label">Back →</p>
+      <p class="page-nav__title">Index · Work</p>
+    </a>
+  </nav>
+</div>
+</main>
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>© 2026 Xu Xinyue · Personal Site</p>
+    <p class="footer__meta">Built with HTML · CSS · Vanilla JavaScript</p>
+  </div>
+</footer>
+<svg class="goo-defs" aria-hidden="true" focusable="false">
+  <filter id="goo">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="blurred"/>
+    <feColorMatrix in="blurred" mode="matrix"
+      values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9"/>
+  </filter>
+</svg>
+<div class="goo" id="gooLayer" aria-hidden="true">
+  <span class="goo__blob goo__blob--lead"></span>
+  <span class="goo__blob goo__blob--trail"></span>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="../vendor/gsap.min.js" defer></script>
+<script src="../vendor/ScrollTrigger.min.js" defer></script>
+<script src="../vendor/SplitText.min.js" defer></script>
+<script src="../script.js" defer></script>
+<script src="../motion.js" defer></script>
+</body>
+</html>

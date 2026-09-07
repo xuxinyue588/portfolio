@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Xu Xinyue | Trajectory · Strategy, Projects & Life</title>
+<meta name="description" content="Xu Xinyue's personal site: the path from classroom to a strategy product internship at Baidu Maps, the projects I built, what I care about, and life beyond the screen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- 手写标题字体：优先使用系统 SignPainter（macOS/iOS 自带）；下面这行 CDN 只是为非苹果平台提供 Caveat Brush 回退，若不需要跨平台一致可整行删除 -->
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="curtain" id="curtain" aria-hidden="true"></div>
+<header class="nav" id="nav">
+  <div class="nav__inner container">
+    <a class="nav__logo" href="#hero">Xu Xinyue<span class="nav__logo-dot">.</span></a>
+    <button class="nav__burger" id="navBurger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navMenu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav__menu" id="navMenu" aria-label="Main navigation">
+      <ul class="nav__list">
+        <li><a class="nav__link is-active" href="#hero" data-nav="hero">Index</a></li>
+        <li><a class="nav__link" href="#journey" data-nav="journey">Trajectory</a></li>
+        <li><a class="nav__link" href="#strategy" data-nav="strategy">Deep Dive</a></li>
+        <li><a class="nav__link" href="#projects" data-nav="projects">Work</a></li>
+        <li><a class="nav__link" href="#ask" data-nav="ask">Ask</a></li>
+        <li><a class="nav__link" href="#contact" data-nav="contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+</header>
+<main>
+<!-- 贯穿全页的主线：随滚动逐段绘制，把六个板块在视觉上缝成一条。
+     viewBox 用 0-100 百分比坐标 + preserveAspectRatio="none"，
+     这样 resize 不必重算 d；non-scaling-stroke 保证非等比缩放下线宽仍是 1px -->
+<svg class="thread" id="thread" aria-hidden="true" focusable="false"
+     viewBox="0 0 100 100" preserveAspectRatio="none">
+  <path class="thread__path" id="threadPath" pathLength="1" vector-effect="non-scaling-stroke"
+        d="M 78 6
+           C 78 13, 30 15, 26 21
+           C 22 27, 16 34, 18 42
+           C 20 50, 74 52, 76 60
+           C 78 66, 30 68, 28 74
+           C 26 80, 70 82, 72 88
+           C 74 93, 52 95, 50 99"/>
+  <!-- 流光点：复用同一条路径，靠一段极短虚线循环跑完全程。
+       这样不必引入 MotionPathPlugin，零新增体积 -->
+  <use class="thread__spark" id="threadSpark" href="#threadPath"/>
+</svg>
+<!-- 章节序号里程表：背景层巨型数字，随整页滚动连续换位 -->
+<div class="chapter-num" id="chapterNum" aria-hidden="true">
+  <span>01</span><span>02</span><span>03</span><span>04</span><span>05</span><span>06</span>
+</div>
+<section class="hero" id="hero">
+  <div class="hero__grid-bg" aria-hidden="true"></div>
+  <div class="geo" id="heroGeo" aria-hidden="true">
+    <span class="geo__ring geo__ring--lg" data-depth="14"></span>
+    <span class="geo__ring geo__ring--sm" data-depth="26"></span>
+    <span class="geo__dot geo__dot--pink" data-depth="34"></span>
+    <span class="geo__dot geo__dot--blue" data-depth="20"></span>
+    <span class="geo__square" data-depth="18"></span>
+    <span class="geo__tri" data-depth="30"></span>
+    <span class="geo__bars" data-depth="10"></span>
+  </div>
+  <div class="hero__glow" id="heroGlow" aria-hidden="true"></div>
+  <div class="hero__inner container">
+    <div class="hero__text">
+      <p class="hero__eyebrow">CUHK-Shenzhen · Computer Science &amp; Engineering</p>
+      <h1 class="hero__title">Xu Xinyue</h1>
+      <p class="hero__role">
+        <span class="hero__rotator" id="heroRotator" data-words="AI Product Manager|Strategy Product Manager|Data-Driven Decision Maker">AI Product Manager</span><span class="hero__caret" aria-hidden="true"></span>
+        <span class="hero__role-sub">Turning data and strategy into growth decisions</span>
+      </p>
+      <p class="hero__lead">From breaking down parking-fee coverage at Baidu Maps <em>27% → 45%</em>, to shipping a multi-agent system as a real product.</p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#strategy">What I did at Baidu</a>
+        <a class="btn btn--ghost" href="#journey">Start from the beginning</a>
+      </div>
+    </div>
+    <div class="hero__avatar">
+      <!-- 照片本身就是去问答板块的入口；标签绝对定位在照片左外缘（栅格第 8 栏本来是空的），
+           它是同一个 <a> 的子元素，所以点文字和点照片都能跳转 -->
+      <a class="hero__ask" href="pages/ask.html" aria-label="Open the Q&amp;A page and ask about my work">
+        <span class="hero__ask-note" aria-hidden="true">
+          <span class="hero__ask-text">Ask about me</span>
+          <svg class="hero__ask-arrow" viewBox="0 0 64 40" fill="none" focusable="false">
+            <path d="M3 9 C 19 4, 41 11, 55 25"/>
+            <path d="M45 26 L 56 26 L 54 15"/>
+          </svg>
+        </span>
+        <img src="assets/life-portrait.jpeg" alt="Portrait of Xu Xinyue" width="750" height="1000">
+      </a>
+    </div>
+  </div>
+  <a class="hero__scroll" href="#intro" aria-label="Scroll down for more">
+    <span class="hero__scroll-text">Scroll</span>
+    <span class="hero__scroll-arrow" aria-hidden="true">↓</span>
+  </a>
+</section>
+
+<section class="section section--alt" id="intro">
+  <div class="container">
+    <p class="intro__eyebrow">01 / What I care about</p>
+    <p class="intro__statement">
+      I like problems that look blurry but can be taken apart. The best part of strategy work is admitting you don't know the answer yet, then closing in on it with data.
+    </p>
+    <ul class="tag-list">
+      <li class="tag">Strategy Product Design</li>
+      <li class="tag">Data-Driven Decisions</li>
+      <li class="tag">Multi-Source &amp; Agent Orchestration</li>
+      <li class="tag">Python / Data Analysis</li>
+    </ul>
+  </div>
+</section>
+<section class="section" id="journey">
+  <div class="container">
+    <div class="section__head">
+      <span class="section__index">02 / Trajectory</span>
+      <p class="section__eyebrow">Journey</p>
+      <h2 class="section__title">My Trajectory</h2>
+      <p class="section__desc">From a freshman who could only write code, to someone who can turn "users can't find parking fees" into a city-by-city strategy — here is how that line was drawn.</p>
+    </div>
+    <!-- 生活足迹示意图。纬度轴真实（y 与纬度线性对应），经度轴被压缩以让三个中国城市可读，
+         故角落标注 Schematic · not to scale。实线=定居迁移，虚线=短期停留，这个区分承载信息，勿当装饰改动。 -->
+    <div class="footprint" id="footprint">
+      <div class="footprint__plot">
+        <svg class="footprint__map" viewBox="0 0 100 90" aria-hidden="true" focusable="false">
+          <defs>
+            <!-- 每条航线一个遮罩：动效统一通过遮罩里的 stroke-dashoffset 绘制，
+                 这样虚线航线的 dasharray 图案不会被绘制动画占用。
+                 不写 x/y/width/height，让默认的 -10%/120% 视口范围自动覆盖整条线。 -->
+            <mask class="fp-mask" id="fpMaskShenzhen" maskUnits="userSpaceOnUse">
+              <path class="fp-draw" d="M 89 58.2 Q 68 82 38 78.3" pathLength="1" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+            </mask>
+            <mask class="fp-mask" id="fpMaskBerlin" maskUnits="userSpaceOnUse">
+              <path class="fp-draw" d="M 38 78.3 Q 12 46 11 9" pathLength="1" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+            </mask>
+            <mask class="fp-mask" id="fpMaskBeijing" maskUnits="userSpaceOnUse">
+              <path class="fp-draw" d="M 38 78.3 Q 58 62 63 38.2" pathLength="1" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+            </mask>
+          </defs>
+          <!-- 纬线位置是真实的：y = 10 + (52.52 − lat) / 29.98 × 77，再乘 0.9 换到 viewBox -->
+          <g class="fp-grid">
+            <line x1="0" y1="14.8" x2="100" y2="14.8"/>
+            <line x1="0" y1="37.9" x2="100" y2="37.9"/>
+            <line x1="0" y1="61" x2="100" y2="61"/>
+            <line x1="0" y1="84.2" x2="100" y2="84.2"/>
+            <line x1="20" y1="0" x2="20" y2="90"/>
+            <line x1="40" y1="0" x2="40" y2="90"/>
+            <line x1="60" y1="0" x2="60" y2="90"/>
+            <line x1="80" y1="0" x2="80" y2="90"/>
+          </g>
+          <g class="fp-routes">
+            <!-- 实线：上海 → 深圳，出生地到读大学的城市 -->
+            <path class="fp-route fp-route--solid" d="M 89 58.2 Q 68 82 38 78.3" mask="url(#fpMaskShenzhen)"/>
+            <!-- 虚线：深圳 ↔ 柏林，2024 夏暑期课程 -->
+            <path class="fp-route fp-route--dashed" d="M 38 78.3 Q 12 46 11 9" mask="url(#fpMaskBerlin)"/>
+            <!-- 虚线：深圳 ↔ 北京，2026 夏实习 -->
+            <path class="fp-route fp-route--dashed" d="M 38 78.3 Q 58 62 63 38.2" mask="url(#fpMaskBeijing)"/>
+          </g>
+        </svg>
+        <button class="fp-node" type="button" style="--x: 89%; --y: 64.7%" data-city="shanghai"
+                aria-pressed="false" aria-label="Shanghai, before 2023 — activate to flip for details">
+          <span class="fp-node__inner">
+            <span class="fp-node__face fp-node__face--front">
+              <span class="fp-node__photo" aria-hidden="true"><img src="assets/city-shanghai.jpeg" alt="" width="400" height="385" loading="lazy"></span>
+              <span class="fp-node__city">Shanghai</span>
+              <span class="fp-node__year">before 2023</span>
+            </span>
+            <span class="fp-node__face fp-node__face--back">
+              <span class="fp-node__note">Where I was born and grew up</span>
+            </span>
+          </span>
+        </button>
+        <button class="fp-node fp-node--base" type="button" style="--x: 38%; --y: 87%" data-city="shenzhen"
+                aria-pressed="false" aria-label="Shenzhen, 2023 to 2027 — activate to flip for details">
+          <span class="fp-node__inner">
+            <span class="fp-node__face fp-node__face--front">
+              <span class="fp-node__photo" aria-hidden="true"><img src="assets/city-shenzhen.jpeg" alt="" width="400" height="371" loading="lazy"></span>
+              <span class="fp-node__city">Shenzhen</span>
+              <span class="fp-node__year">2023–2027</span>
+            </span>
+            <span class="fp-node__face fp-node__face--back">
+              <span class="fp-node__note">CUHK-Shenzhen · CS &amp; Engineering</span>
+            </span>
+          </span>
+        </button>
+        <button class="fp-node" type="button" style="--x: 11%; --y: 10%" data-city="berlin"
+                aria-pressed="false" aria-label="Berlin, summer 2024 — activate to flip for details">
+          <span class="fp-node__inner">
+            <span class="fp-node__face fp-node__face--front">
+              <span class="fp-node__photo" aria-hidden="true"><img src="assets/city-berlin.jpeg" alt="" width="400" height="300" loading="lazy"></span>
+              <span class="fp-node__city">Berlin</span>
+              <span class="fp-node__year">2024 Summer</span>
+            </span>
+            <span class="fp-node__face fp-node__face--back">
+              <span class="fp-node__note">Humboldt University summer course</span>
+            </span>
+          </span>
+        </button>
+        <button class="fp-node" type="button" style="--x: 63%; --y: 42.4%" data-city="beijing"
+                aria-pressed="false" aria-label="Beijing, summer 2026 — activate to flip for details">
+          <span class="fp-node__inner">
+            <span class="fp-node__face fp-node__face--front">
+              <span class="fp-node__photo" aria-hidden="true"><img src="assets/city-beijing.jpeg" alt="" width="400" height="232" loading="lazy"></span>
+              <span class="fp-node__city">Beijing</span>
+              <span class="fp-node__year">2026 Summer</span>
+            </span>
+            <span class="fp-node__face fp-node__face--back">
+              <span class="fp-node__note">Baidu IDG Maps · Strategy PM intern</span>
+            </span>
+          </span>
+        </button>
+      </div>
+      <p class="footprint__caption">Schematic · not to scale</p>
+    </div>
+    <div class="journey__grid">
+      <div class="journey__main">
+        <ol class="journey" id="journeyList">
+          <li class="journey__item">
+            <span class="journey__time">2023.09</span>
+            <h3 class="journey__title">Entered CUHK-Shenzhen, Computer Science &amp; Engineering</h3>
+            <p class="journey__text">I arrived thinking product work meant drawing wireframes. My first group project changed that: every feature shipped, and nobody wanted to use it. After that I forced myself to ask "whose problem is this" before writing a line of code.</p>
+          </li>
+          <li class="journey__item">
+            <span class="journey__time">2025</span>
+            <h3 class="journey__title">China Undergraduate Mathematical Contest in Modeling · First Prize, Guangdong</h3>
+            <p class="journey__text">The hardest part of those three days was not the modeling — it was deciding which variables to drop. We started by stuffing in every factor and only got a stable result after cutting half our assumptions. That was the first time I felt that trade-offs beat completeness.</p>
+          </li>
+          <li class="journey__item">
+            <span class="journey__time">2024–2026 academic year</span>
+            <h3 class="journey__title">Dean's List</h3>
+            <p class="journey__text">That year I spent most of my hours on data analysis and algorithms, and it settled the question: I want the product role closest to the data, not a purely business-logic coding job.</p>
+          </li>
+          <li class="journey__item">
+            <span class="journey__time">2026.05 – 2026.08</span>
+            <h3 class="journey__title">Baidu IDG Maps · Strategy Product Manager Intern</h3>
+            <p class="journey__text">My first assignment was concrete: why can't users find parking fees on the map? Over three months I benchmarked 500 lots against competitors, designed a multi-source collection strategy, and held the quality line on a 130-person collection project — pushing coverage from 27% to 45%. This is where I learned that strategy has to land on people and cost.</p>
+          </li>
+          <li class="journey__item">
+            <span class="journey__time">2026</span>
+            <h3 class="journey__title">MCM Meritorious Winner &amp; Hackathon project "Career Scout"</h3>
+            <p class="journey__text">Modeling contests made me braver with uncertainty; the hackathon let me actually build something — a multi-agent product that helps job seekers read a company clearly. Engineering isn't my destination, but it sets how far I can think.</p>
+          </li>
+        </ol>
+
+        <h3 class="about__subtitle">Three things this line taught me</h3>
+        <ul class="ability">
+          <li class="ability__item">
+            <p class="ability__title">Tier the problem before touching it</p>
+            <p class="ability__desc">Three-dimension tiering across 150 cities and a five-source framework were both about slicing an oversized goal into prioritizable pieces.</p>
+          </li>
+          <li class="ability__item">
+            <p class="ability__title">Trust data, but chase the root cause</p>
+            <p class="ability__desc">57% of 23 anomalous records had nothing to do with opening hours — the real defect sat in source-link recall. Numbers are only the entrance.</p>
+          </li>
+          <li class="ability__item">
+            <p class="ability__title">Strategy has to land on people and cost</p>
+            <p class="ability__desc">Running a 130-person collection project from PRD to quality acceptance taught me to price the labour before arguing about elegance.</p>
+          </li>
+        </ul>
+      </div>
+      <aside class="about__aside">
+        <div class="about__figure">
+          <img src="assets/portrait.jpeg" alt="Formal portrait of Xu Xinyue" width="960" height="1280">
+        </div>
+        <ul class="about__facts">
+          <li><span>Focus</span><strong>AI / Strategy PM</strong></li>
+          <li><span>Toolkit</span><strong>Python · Analytics · SQL</strong></li>
+          <li><span>Currently</span><strong>Baidu Maps data strategy</strong></li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+<section class="section section--alt" id="strategy">
+  <div class="container">
+    <div class="section__head">
+      <span class="section__index">03 / Deep Dive</span>
+      <p class="section__eyebrow">Deep Dive</p>
+      <h2 class="section__title">Three Months on Baidu Maps</h2>
+      <p class="section__desc">The first question I was handed: why can't users find parking fees on the map? Below is how that single complaint became a strategy that shipped across 150 cities.</p>
+    </div>
+
+    <article class="exp card">
+      <header class="exp__head">
+        <div>
+          <h3 class="exp__company">Baidu · IDG Maps Business Group</h3>
+          <p class="exp__role">Strategy Product Manager Intern</p>
+        </div>
+        <span class="exp__period">2026.05 – 2026.08</span>
+      </header>
+
+      <div class="tabs" role="tablist" aria-label="Internship workstreams">
+        <button class="tab is-active" role="tab" id="tab-a" aria-selected="true" aria-controls="panel-a">Parking Fee Coverage</button>
+        <button class="tab" role="tab" id="tab-b" aria-selected="false" aria-controls="panel-b">Opening Hours &amp; Quality</button>
+      </div>
+
+      <div class="tab-panel" id="panel-a" role="tabpanel" aria-labelledby="tab-a">
+        <p class="exp__result">Coverage 27% → 45%, ahead of competitors by 10+ PP</p>
+        <div class="exp__block">
+          <h4 class="exp__label">Problem / Context</h4>
+          <p>Parking fee coverage on Baidu Maps sat around 27%, and "no fee information" was a top complaint in the navigate-to-destination scenario.</p>
+        </div>
+        <div class="exp__block">
+          <h4 class="exp__label">Strategy Design</h4>
+          <ol class="steps">
+            <li>Sampled 500 parking lots against Amap and Tencent Maps to locate where the coverage gap concentrated</li>
+            <li>Scenario-specific collection: competitor mining, field survey, roadside official sites, and AI phone inquiry</li>
+            <li>Three-dimension tiering across 150 cities, launched in priority waves to control labour cost and risk</li>
+          </ol>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <p class="stat-card__value"><span class="stat-num" data-target="45">0</span><span class="stat-suffix">%</span></p>
+            <p class="stat-card__label">Parking fee coverage (+15 PP, 10+ PP ahead of competitors)</p>
+            <div class="stat-bar" data-from="27" data-to="45">
+              <span class="stat-bar__fill"></span>
+              <span class="stat-bar__base" style="left: 27%"></span>
+            </div>
+            <p class="stat-bar__legend"><span>Inherited 27%</span><span>Delivered 45%</span></p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__value"><span class="stat-num" data-target="85">0</span><span class="stat-suffix">%+</span></p>
+            <p class="stat-card__label">Strategy launch success rate</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__value"><span class="stat-num" data-target="80">0</span><span class="stat-suffix">%</span></p>
+            <p class="stat-card__label">Sampling pass rate, 130-person collection project</p>
+          </div>
+        </div>
+        <div class="exp__block exp__block--think">
+          <h4 class="exp__label">Going Further</h4>
+          <p>Built a quality feedback loop for AI phone inquiry, identified five recurring failure classes, and drew the human–machine boundary that supports an 80%+ automation rate.</p>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="panel-b" role="tabpanel" aria-labelledby="tab-b" hidden>
+        <p class="exp__result">Coverage lifted at zero incremental collection cost</p>
+        <div class="exp__block">
+          <h4 class="exp__label">Problem / Context</h4>
+          <p>Manual production volume was off by an order of magnitude. Tracing 23 anomalous records showed 57% were unrelated to opening hours — the root cause was a defect in source-link recall.</p>
+        </div>
+        <div class="exp__block">
+          <h4 class="exp__label">Strategy Design</h4>
+          <ol class="steps">
+            <li>Five-source framework: barrier-breaking crawl, parent-child inheritance, brand sweeping, obvious-fake filtering, competitor mining</li>
+            <li>Core principle "zero incremental collection cost, maximum coverage" — reuse existing data relations first</li>
+            <li>Validated with ground-truth sampling before opening the full pipeline</li>
+          </ol>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <p class="stat-card__value"><span class="stat-num" data-target="85">0</span><span class="stat-suffix">%+</span></p>
+            <p class="stat-card__label">Ground-truth validation accuracy</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__value"><span class="stat-num" data-target="150">0</span><span class="stat-suffix">+</span></p>
+            <p class="stat-card__label">Official sites covered (plus 10 mini-program sources)</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-card__value"><span class="stat-num" data-target="70">0</span><span class="stat-suffix">w+</span></p>
+            <p class="stat-card__label">New POIs unlocked past encyclopedia limits</p>
+          </div>
+        </div>
+        <div class="exp__block exp__block--think">
+          <h4 class="exp__label">Going Further</h4>
+          <p>Parent-child inheritance raised coverage without adding collection cost — a reminder that cost efficiency is part of strategy design, not an afterthought.</p>
+        </div>
+      </div>
+
+      <div class="exp__more">
+        <a class="btn btn--primary" href="pages/case-baidu-map.html">Read the full case →</a>
+        <p class="exp__more-hint">Context, judgment calls, both strategies and the retrospective</p>
+      </div>
+    </article>
+  </div>
+</section>
+<section class="section" id="projects">
+  <div class="container">
+    <div class="section__head">
+      <span class="section__index">04 / Work</span>
+      <p class="section__eyebrow">Projects</p>
+      <h2 class="section__title">Things I Have Built</h2>
+      <p class="section__desc">These projects aren't proof that I can code — they're how I test ideas. Flip a card to see what I was actually wrestling with.</p>
+    </div>
+
+    <div class="proj-grid">
+      <article class="flip" tabindex="0" role="button" aria-pressed="false" aria-label="Career Scout project, click or press Enter to flip and read the story">
+        <div class="flip__inner">
+          <div class="flip__face flip__face--front">
+            <p class="proj__tag">Hackathon</p>
+            <h3 class="proj__title">Career Scout</h3>
+            <p class="flip__hook">Multi-agent research that lets a job seeker read a company in three minutes.</p>
+            <ul class="flip__stack"><li>Multi-Agent</li><li>Prompt Orchestration</li><li>Web Retrieval</li></ul>
+            <div class="flip__footer">
+              <p class="flip__cue">Flip for the story ↻</p>
+              <!-- Watch Demo 暂时摘掉：assets/zhitan-demo.mp4 有 160MB，被 .vercelignore 排除，
+                   线上点开会是黑播放器。视频托管方案（ffmpeg 重编 / B 站嵌入）落地后，
+                   把下面这段取消注释即可；若改成 B 站，只需把 data-demo 指向新的播放器页。
+              <button type="button" class="proj__demo-btn"
+                      data-demo="assets/zhitan-demo-player.html"
+                      data-demo-title="Career Scout · Demo"
+                      aria-label="Watch the Career Scout demo video">
+                Watch Demo
+              </button>
+              -->
+            </div>
+          </div>
+          <div class="flip__face flip__face--back">
+            <h4 class="flip__back-title">Career Scout · behind it</h4>
+            <p class="flip__line"><span>My role</span>Product design + agent task orchestration</p>
+            <p class="flip__line"><span>The problem</span>Judging one company means five-plus platforms, with fragmented and contradictory information</p>
+            <p class="flip__line"><span>What I did</span>Split "trustworthiness" into registry risk, sentiment, pay, interview process and employee reviews; one agent per dimension in parallel, with a controller agent resolving conflicts</p>
+            <p class="flip__line"><span>What I learned</span>The value of multi-agent isn't faster retrieval — it's having something judge which source to believe</p>
+            <a class="flip__link" href="pages/project-zhitan.html">View details →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="flip" tabindex="0" role="button" aria-pressed="false" aria-label="AAIL animated learning system project, click or press Enter to flip and read the story">
+        <div class="flip__inner">
+          <div class="flip__face flip__face--front">
+            <p class="proj__tag">Education / 3D</p>
+            <h3 class="proj__title">AAIL Animated Learning System</h3>
+            <p class="flip__hook">Lifting solid geometry off the page so students can turn it themselves.</p>
+            <ul class="flip__stack"><li>Three.js</li><li>LLM Parsing</li><li>Interactive Animation</li></ul>
+            <div class="flip__footer">
+              <p class="flip__cue">Flip for the story ↻</p>
+              <button type="button" class="proj__demo-btn"
+                      data-demo="assets/aail-demo-player.html"
+                      data-demo-title="AAIL · Demo"
+                      aria-label="Watch the AAIL demo video">
+                Watch Demo
+              </button>
+            </div>
+          </div>
+          <div class="flip__face flip__face--back">
+            <h4 class="flip__back-title">AAIL · behind it</h4>
+            <p class="flip__line"><span>My role</span>Product design + front-end implementation</p>
+            <p class="flip__line"><span>The problem</span>In K-12 solid geometry the hard part isn't the arithmetic — it's building the space in your head</p>
+            <p class="flip__line"><span>What I did</span>Parsed natural-language problems into geometric parameters and animation timing, rendered rotatable exploded models in Three.js, and generated auxiliary lines step by step</p>
+            <p class="flip__line"><span>What I learned</span>The real difficulty in education products is step granularity, not rendering quality</p>
+            <a class="flip__link" href="pages/project-aail.html">View details →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="flip" tabindex="0" role="button" aria-pressed="false" aria-label="Hull Tactical Market Prediction project, click or press Enter to flip and read the story">
+        <div class="flip__inner">
+          <div class="flip__face flip__face--front">
+            <p class="proj__tag">Quant Modeling</p>
+            <h3 class="proj__title">Hull Tactical Market Prediction</h3>
+            <p class="flip__hook">Finding one signal that holds up inside very noisy financial series.</p>
+            <ul class="flip__stack"><li>Python</li><li>Feature Engineering</li><li>Stacking</li></ul>
+            <p class="flip__cue">Flip for the story ↻</p>
+          </div>
+          <div class="flip__face flip__face--back">
+            <h4 class="flip__back-title">Hull Tactical · behind it</h4>
+            <p class="flip__line"><span>My role</span>Feature design and model blending</p>
+            <p class="flip__line"><span>The problem</span>A single model scored well, then collapsed on another window — textbook overfitting</p>
+            <p class="flip__line"><span>What I did</span>Built features across price momentum, volatility structure and macro sentiment, pinned overfitting down with time-series cross-validation, then stacked the base models</p>
+            <p class="flip__line"><span>Result</span>Pearson 0.384, annualized Sharpe 2.97 — control stability first, then chase score; that order can't be reversed</p>
+            <a class="flip__link" href="pages/project-hull.html">View details →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 问答组件已移到独立页 pages/ask.html；这里只留入口块。
+     id="ask" 必须保留：导航的 scroll-spy 靠 data-nav="ask" 找它 -->
+<section class="section" id="ask">
+  <div class="container">
+    <a class="life-entry" href="pages/ask.html">
+      <span class="life-entry__book" aria-hidden="true"></span>
+      <span>
+        <span class="life-entry__title">Ask about my work</span>
+        <span class="life-entry__desc">Rather than reading every page, ask directly — answers are grounded only in this site's content, with links back to the source</span>
+      </span>
+      <span class="life-entry__go">Open the Q&amp;A →</span>
+    </a>
+  </div>
+</section>
+
+<section class="section section--alt" id="life">
+  <div class="container">
+    <a class="life-entry" href="pages/life.html">
+      <span class="life-entry__book" aria-hidden="true"></span>
+      <span>
+        <span class="life-entry__title">Off Screen</span>
+        <span class="life-entry__desc">Craft, food, travel — open the book and see what I do when I'm not doing product work</span>
+      </span>
+      <span class="life-entry__go">Open the book →</span>
+    </a>
+  </div>
+</section>
+
+<section class="section section--closing" id="contact">
+  <div class="container">
+    <div class="section__head contact__head">
+      <span class="section__index">06 / Contact</span>
+      <p class="section__eyebrow">Contact</p>
+      <h2 class="section__title">I'm looking for an AI / strategy product internship — reach me here</h2>
+    </div>
+    <div class="contact__grid">
+      <a class="contact-card" href="mailto:123090698@link.cuhk.edu.cn">
+        <span class="contact-card__label">Email</span>
+        <span class="contact-card__value">123090698@link.cuhk.edu.cn</span>
+        <span class="contact-card__hint">Write to me — I usually reply the same day</span>
+      </a>
+      <a class="contact-card" href="tel:+8618621816832" id="phoneCard" data-phone="186 2181 6832">
+        <span class="contact-card__label">Phone</span>
+        <span class="contact-card__value">186 2181 6832</span>
+        <span class="contact-card__hint">Click to copy on desktop</span>
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>© 2026 Xu Xinyue · Personal Site</p>
+    <p class="footer__meta">Built with HTML · CSS · Vanilla JavaScript</p>
+  </div>
+</footer>
+<div class="demo-modal" id="demoModal" hidden role="dialog" aria-modal="true" aria-labelledby="demoModalTitle">
+  <div class="demo-modal__backdrop" data-close></div>
+  <div class="demo-modal__panel">
+    <header class="demo-modal__head">
+      <h3 id="demoModalTitle">Career Scout · Demo</h3>
+      <button type="button" class="demo-modal__close" data-close aria-label="Close demo">✕</button>
+    </header>
+    <iframe class="demo-modal__frame" title="Demo video" loading="lazy"></iframe>
+  </div>
+</div>
+<svg class="goo-defs" aria-hidden="true" focusable="false">
+  <filter id="goo">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="blurred"/>
+    <feColorMatrix in="blurred" mode="matrix"
+      values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9"/>
+  </filter>
+</svg>
+<div class="goo" id="gooLayer" aria-hidden="true">
+  <span class="goo__blob goo__blob--lead"></span>
+  <span class="goo__blob goo__blob--trail"></span>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="vendor/gsap.min.js" defer></script>
+<script src="vendor/ScrollTrigger.min.js" defer></script>
+<script src="vendor/SplitText.min.js" defer></script>
+<script src="script.js" defer></script>
+<script src="motion.js" defer></script>
+</body>
+</html>

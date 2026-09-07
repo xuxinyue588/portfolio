@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ask about my work | Xu Xinyue</title>
+<meta name="description" content="Ask a question about Xu Xinyue's strategy work and projects, or paste a job description to see where it overlaps. Answers are grounded only in this site's content, with links back to the source.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- 手写标题字体：优先使用系统 SignPainter（macOS/iOS 自带）；下面这行 CDN 只是为非苹果平台提供 Caveat Brush 回退，若不需要跨平台一致可整行删除 -->
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="curtain" id="curtain" aria-hidden="true"></div>
+<div class="dot-drift" aria-hidden="true"></div>
+<header class="nav" id="nav">
+  <div class="nav__inner container">
+    <a class="nav__logo" href="../index.html">Xu Xinyue<span class="nav__logo-dot">.</span></a>
+    <button class="nav__burger" id="navBurger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navMenu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav__menu" id="navMenu" aria-label="Main navigation">
+      <ul class="nav__list">
+        <li><a class="nav__link" href="../index.html#hero">Index</a></li>
+        <li><a class="nav__link" href="../index.html#journey">Trajectory</a></li>
+        <li><a class="nav__link" href="../index.html#strategy">Deep Dive</a></li>
+        <li><a class="nav__link" href="../index.html#projects">Work</a></li>
+        <li><a class="nav__link is-active" href="../index.html#ask">Ask</a></li>
+        <li><a class="nav__link" href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+</header>
+<main>
+<div class="container">
+  <nav class="crumb" aria-label="Breadcrumb">
+    <a href="../index.html">Index</a>
+    <span class="crumb__sep">/</span>
+    <span class="crumb__current">Ask</span>
+  </nav>
+</div>
+
+<section class="detail-hero">
+  <div class="container">
+    <p class="section__eyebrow">Ask</p>
+    <h1 class="detail-hero__title">Ask about my work</h1>
+    <p class="detail-hero__lead">Rather than reading every page, ask directly. Answers are grounded only in what is written on this site, with links back to the source. If something isn't here, it will say so.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <!-- 组件所有 id 与首页原版完全一致：copilot.js 靠这些 id 取元素，改任何一个都会静默失效 -->
+    <div class="ask" id="askWidget">
+      <div class="ask__modes" role="group" aria-label="Choose what to ask">
+        <button type="button" class="ask__mode-btn is-active" data-mode="qa" aria-pressed="true">Ask a question</button>
+        <button type="button" class="ask__mode-btn" data-mode="jd" aria-pressed="false">Match a job description</button>
+      </div>
+
+      <form class="ask__form" id="askForm" novalidate>
+        <label class="ask__label" for="askInput" id="askLabel">Your question</label>
+        <textarea class="ask__input" id="askInput" name="question" rows="3" maxlength="2000"
+                  placeholder="e.g. What exactly did she own at Baidu Maps?"></textarea>
+        <div class="ask__actions">
+          <span class="ask__counter" id="askCounter" aria-hidden="true">0 / 2000</span>
+          <button type="submit" class="ask__submit" id="askSubmit">Ask</button>
+        </div>
+      </form>
+
+      <div class="ask__chips" id="askChips">
+        <span class="ask__chips-label">Try</span>
+        <button type="button" class="ask__chip">What did she own at Baidu Maps?</button>
+        <button type="button" class="ask__chip">How does she decide what not to build?</button>
+        <button type="button" class="ask__chip">What is the multi-agent project about?</button>
+      </div>
+
+      <p class="ask__status" id="askStatus" role="status"></p>
+      <div class="ask__answer" id="askAnswer" hidden></div>
+
+      <p class="ask__note">Grounded in this site's content only — no external retrieval. Numbers are quoted verbatim from the case pages.</p>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <nav class="page-nav" aria-label="Previous and next">
+    <a class="page-nav__item" href="../index.html#projects">
+      <p class="page-nav__label">← Previous</p>
+      <p class="page-nav__title">Index · Work</p>
+    </a>
+    <a class="page-nav__item page-nav__item--next" href="../index.html#contact">
+      <p class="page-nav__label">Next →</p>
+      <p class="page-nav__title">Contact</p>
+    </a>
+  </nav>
+</div>
+</main>
+<script src="../vendor/gsap.min.js" defer></script>
+<script src="../vendor/ScrollTrigger.min.js" defer></script>
+<script src="../vendor/SplitText.min.js" defer></script>
+<script src="../script.js" defer></script>
+<script src="../motion.js" defer></script>
+<script src="../copilot.js" defer></script>
+</body>
+</html>

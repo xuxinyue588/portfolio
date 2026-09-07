@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Career Scout · Multi-Agent Job Assistant | Xu Xinyue</title>
+<meta name="description" content="Splitting 'is this company trustworthy' into five dimensions searched in parallel by agents, with a controller agent resolving conflicts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- 手写标题字体：优先使用系统 SignPainter（macOS/iOS 自带）；下面这行 CDN 只是为非苹果平台提供 Caveat Brush 回退，若不需要跨平台一致可整行删除 -->
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="curtain" id="curtain" aria-hidden="true"></div>
+<div class="dot-drift" aria-hidden="true"></div>
+<header class="nav" id="nav">
+  <div class="nav__inner container">
+    <a class="nav__logo" href="../index.html">Xu Xinyue<span class="nav__logo-dot">.</span></a>
+    <button class="nav__burger" id="navBurger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navMenu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav__menu" id="navMenu" aria-label="Main navigation">
+      <ul class="nav__list">
+        <li><a class="nav__link" href="../index.html#hero">Index</a></li>
+        <li><a class="nav__link" href="../index.html#journey">Trajectory</a></li>
+        <li><a class="nav__link" href="../index.html#strategy">Deep Dive</a></li>
+        <li><a class="nav__link is-active" href="../index.html#projects">Work</a></li>
+        <li><a class="nav__link" href="../index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+</header>
+<main>
+<div class="container">
+  <nav class="crumb" aria-label="Breadcrumb">
+    <a href="../index.html">Index</a>
+    <span class="crumb__sep">/</span>
+    <a href="../index.html#projects">Work</a>
+    <span class="crumb__sep">/</span>
+    <span class="crumb__current">Career Scout</span>
+  </nav>
+</div>
+
+<section class="detail-hero">
+  <div class="container">
+    <p class="section__eyebrow">Project · Hackathon</p>
+    <h1 class="detail-hero__title">Career Scout: Read a Company in Three Minutes</h1>
+    <p class="detail-hero__lead">Judging one company means visiting five or more platforms, where information is fragmented and contradictory. Career Scout splits the task into five dimensions, assigns an agent to each in parallel, then lets a controller agent resolve the conflicts.</p>
+    <div class="detail-meta">
+      <div><span>Role</span><strong>Product design + agent orchestration</strong></div>
+      <div><span>Context</span><strong>Hackathon</strong></div>
+      <div><span>Stack</span><strong>Multi-Agent · Prompt orchestration</strong></div>
+      <div><span>Form</span><strong>Web retrieval product</strong></div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="detail-body">
+    <div>
+      <article class="detail-block" id="problem">
+        <h2 class="detail-block__title"><span class="detail-block__num">01</span>The problem isn't search — it's judgment</h2>
+        <p>What actually blocks a job seeker doing background research is not missing information, but too much of it in conflict: the hiring platform promises generous pay, the employee forum reports heavy overtime, and the registry shows a few lawsuits you can't tell whether to worry about.</p>
+        <p>So the core to solve was never "search faster" but "judge which source to believe for the user". That positioning drove every design decision after it.</p>
+      </article>
+
+      <article class="detail-block" id="breakdown">
+        <h2 class="detail-block__title"><span class="detail-block__num">02</span>Splitting "trustworthy" into five dimensions</h2>
+        <p>A vague "is it trustworthy" cannot be searched directly; it has to be cut into independently verifiable dimensions. We settled on five:</p>
+        <ol class="steps">
+          <li>Registry risk: registration details, equity changes, litigation and operating anomalies</li>
+          <li>Sentiment: negative signals from public reporting and social platforms</li>
+          <li>Pay: salary ranges compared across platforms</li>
+          <li>Interview process: length of the loop and candidate experience feedback</li>
+          <li>Employee reviews: sentiment from current and former employees</li>
+        </ol>
+        <p>Splitting dimensions gives each agent a clear task boundary, lets prompts be written specifically, and lets output formats be constrained uniformly — which makes conflict resolution downstream far easier.</p>
+      </article>
+
+      <article class="detail-block" id="orchestration">
+        <h2 class="detail-block__title"><span class="detail-block__num">03</span>Agent orchestration and conflict resolution</h2>
+        <p>Five sub-agents search in parallel while the controller agent handles three things: dispatching tasks, converging output format, and handling conflicts between dimensions.</p>
+        <p>Conflict resolution is the most valuable part of this product. When the pay dimension shows industry-leading numbers while employee reviews turn heavily negative, the controller doesn't average them — it preserves the disagreement, annotates source and date, and hands the basis for judgment back to the user.</p>
+        <p class="detail-quote">The value of multi-agent isn't faster retrieval — it's having something judge which source to believe.</p>
+      </article>
+
+      <article class="detail-block" id="demo">
+        <h2 class="detail-block__title"><span class="detail-block__num">04</span>Demo</h2>
+        <p>The recording walks through the five dimensions searching in parallel and the controller agent consolidating them into one conclusion.</p>
+        <!-- 录屏未上线：源文件 160MB / 6.76Mbps，超出 Vercel Hobby 的 100MB 上传限额。
+             托管方案定了之后，把下面的 .notice 换回原来的 .detail-video 块即可：
+             <div class="detail-video">
+               <iframe src="../assets/zhitan-demo-player.html" title="Career Scout demo video" loading="lazy"></iframe>
+             </div> -->
+        <p class="notice">The screen recording isn't hosted here yet — the file is larger than what this site's hosting allows, and I'd rather not ship a compressed version where the agent output is unreadable. Email me and I'll send it over: <a href="../index.html#contact">contact details</a>.</p>
+      </article>
+
+      <article class="detail-block" id="retro">
+        <h2 class="detail-block__title"><span class="detail-block__num">05</span>Retrospective</h2>
+        <p>My biggest takeaway: the cost of a multi-agent architecture goes into making outputs comparable, not into making the agents run. The cleaner the dimension split, the lighter the conflict resolution.</p>
+        <p>Engineering isn't my destination, but it sets how far I can think — without knowing what agent orchestration can do, I would have positioned this as an aggregated search instead of a product that judges on the user's behalf.</p>
+        <p class="notice">This is a hackathon build, not yet a sustainable product. Happy to talk through the prompt design or how we weighted the dimensions.</p>
+      </article>
+    </div>
+
+    <aside class="toc">
+      <p class="toc__title">On this page</p>
+      <ul class="toc__list">
+        <li><a href="#problem">The problem</a></li>
+        <li><a href="#breakdown">Five dimensions</a></li>
+        <li><a href="#orchestration">Orchestration</a></li>
+        <li><a href="#demo">Demo</a></li>
+        <li><a href="#retro">Retrospective</a></li>
+      </ul>
+    </aside>
+  </div>
+
+  <nav class="page-nav" aria-label="Previous and next">
+    <a class="page-nav__item" href="case-baidu-map.html">
+      <p class="page-nav__label">← Previous</p>
+      <p class="page-nav__title">Baidu Maps Strategy Case</p>
+    </a>
+    <a class="page-nav__item page-nav__item--next" href="project-aail.html">
+      <p class="page-nav__label">Next →</p>
+      <p class="page-nav__title">AAIL Animated Learning System</p>
+    </a>
+  </nav>
+</div>
+</main>
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>© 2026 Xu Xinyue · Personal Site</p>
+    <p class="footer__meta">Built with HTML · CSS · Vanilla JavaScript</p>
+  </div>
+</footer>
+<svg class="goo-defs" aria-hidden="true" focusable="false">
+  <filter id="goo">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="9" result="blurred"/>
+    <feColorMatrix in="blurred" mode="matrix"
+      values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9"/>
+  </filter>
+</svg>
+<div class="goo" id="gooLayer" aria-hidden="true">
+  <span class="goo__blob goo__blob--lead"></span>
+  <span class="goo__blob goo__blob--trail"></span>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="../vendor/gsap.min.js" defer></script>
+<script src="../vendor/ScrollTrigger.min.js" defer></script>
+<script src="../vendor/SplitText.min.js" defer></script>
+<script src="../script.js" defer></script>
+<script src="../motion.js" defer></script>
+</body>
+</html>
